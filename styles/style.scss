@@ -130,6 +130,11 @@ body {
 
   padding-bottom: 2rem; // useful for mobile version so that last card will have padding to the screen bottom
 
+  // Tablet
+  @media (min-width: 600px) and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    align-content: start;
+  }
 
   &::before {
     content: "";
@@ -164,6 +169,11 @@ body {
 
   &:not(:nth-child(1)) {
     padding: var(--default-padding);
+
+    // Tablet & Mobile
+    @media (max-width: 900px) {
+      margin: 0 var(--default-padding);
+    }
   }
 
   &:nth-child(1) {
@@ -171,11 +181,27 @@ body {
       grid-row: 1 / -1 ما رح تشتغل إلا إذا كان الـ .card داخل عنصر أبو إلو display: grid.
      */
     grid-row: 1/3;
+
+    // Tablet
+    @media (min-width: 600px) and (max-width: 900px) {
+      grid-column: 1/-1;
+      // grid-row: 1;
+      flex-direction: row;
+      border-radius: 0;
+    }
   }
 
   & .top {
     background-color: var(--color-desaturated-blue);
     padding: var(--default-padding);
+
+    // Tablet
+    @media (min-width: 600px) and (max-width: 900px) {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 1rem;
+    }
   }
 }
 
@@ -202,6 +228,12 @@ body {
     -> only supported for GRID
    */
   margin: auto 0; // parent must be flex in order for margin auto to work
+
+  // Tablet
+  @media (min-width: 600px) and (max-width: 900px) {
+    flex: 1;
+  }
+
 }
 
 .row {
