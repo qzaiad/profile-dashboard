@@ -1,0 +1,18 @@
+@mixin mobile {
+  @media (max-width: 600px) {
+    @content; // otherwise Error: Mixin doesn't accept a content block.
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 600px) and (max-width: 900px) {
+    @content; // otherwise Error: Mixin doesn't accept a content block.
+  }
+}
+
+@mixin mobile-tablet {
+  @media (max-width: 900px) {
+    @content; // otherwise Error: Mixin doesn't accept a content block.
+  }
+}
+
