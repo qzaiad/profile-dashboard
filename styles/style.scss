@@ -1,0 +1,211 @@
+:root {
+  --color-very-dark-blue: #0f1424;
+  --color-dark-blue: #1c1f4a;
+  --color-desaturated-blue: #5646e9;
+  --color-pale-blue: #bdc1ff;
+  --color-white: #fff;
+  --default-padding: 2rem;
+  --default-radius: 0.8rem;
+}
+
+/* CSS Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Rubik", sans-serif;
+  color: var(--color-white);
+}
+
+/* End CSS Reset */
+
+/*
+  What happens step by step
+  1. background-size: 40rem;
+    This sets the background image width to 40rem
+    Height is auto → aspect ratio is preserved
+    If the original image is smaller, it will scale up to 40rem
+  2. Background repeat behavior
+    You did not specify background-repeat, so CSS uses the default:
+    background-repeat: repeat;
+
+  That means:
+    The 40rem image tiles horizontally and vertically
+    It repeats to fill the entire container
+
+  Final behavior
+  ✔️ Image scales to 40rem wide
+  ✔️ Image repeats to fill the 100vh container
+ */
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 20rem);
+  column-gap: var(--default-padding);
+  row-gap: var(--default-padding);
+  /*
+  The background property in CSS is a shorthand property that lets you define all background-related styles for an element in a single line.
+
+    background: color image position / size repeat attachment origin clip;
+
+    Default values (important)
+          Property	          Default
+    - background-color	    transparent
+    - background-repeat	      repeat
+    - background-position	    0% 0%
+    - background-size	         auto
+    - background-attachment   scroll
+   */
+  background: url('../assets/pattern.jpg') var(--color-very-dark-blue);
+  /* 
+    This will make the background picture smaller and will repeat it to the whole width
+    Syntax:
+    - background-size: value;
+    - background-size: width height;
+    - background-size: auto;
+      - Image keeps its original size
+      - No scaling unless needed
+      - background-size: auto 100%; is also possible
+    - background-size: cover;
+      - fills the entire element
+      - Some parts may be cropped
+      - 📌 Best for: Hero sections/Full-width banners
+    - background-size: contain;
+      - Image fits entirely inside the element
+      - No cropping
+      - Empty space may appear
+ 📌 Best for: Logos/Icons/Images that must stay fully visible
+   */
+  background-size: 40rem;
+  min-height: 100vh;
+  /*
+    طريقة دمج طبقتين أو أكثر من الخلفيات فوق بعضهما لإنتاج لون أو شكل نهائي واحد
+    controls how multiple background layers are blended together, using the “difference” blending formula.
+    It works similarly to blend modes in design tools like Photoshop.  
+    In simple terms:
+    - Light areas invert dark areas
+    - Dark areas invert light areas
+    - Identical colors become black
+   */
+  background-blend-mode: difference;
+  /* & represents the parent selector you’re currently inside.
+    - filter → affects the element itself
+    - backdrop-filter → affects the background behind the element
+   */
+  
+  align-content: center;  // vertically
+  justify-content: center; // horozontally
+
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*
+      applies visual effects to what is behind an element, not the element itself.
+
+      It does NOT affect all components with the same or lower z-index.
+
+      It only affects what is visually behind the element inside its own backdrop area.
+
+      The browser does this:
+      - Looks at what pixels are behind .glass
+      - Takes only the part visible through .glass
+      - Applies the blur only in that area
+
+      It is not based on z-index values, but on visual stacking and overlap.
+    */
+    backdrop-filter: blur(.2rem);
+  }
+}
+
+.card {
+  z-index: 1;
+  background-color: var(--color-dark-blue);
+  border-radius: var(--default-radius);
+  overflow: hidden; // cut everything (.top) outside the limits
+
+  &:nth-child(1) {
+    grid-row: 1/3;
+  }
+
+  & .top {
+    background-color: var(--color-desaturated-blue);
+    padding: var(--default-padding);
+  }
+}
+
+.name {
+  font-size: 2.6rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+}
+
+.pic {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: 0.2rem solid var(--color-white);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: var(--default-padding);
+}
+
+.row {
+  display: flex;
+  flex: 1;  // all row elements share vertical space equally
+  gap: 0.5rem;
+  align-items: center; // cross axis (vertrically)
+}
+
+.icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
